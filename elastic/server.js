@@ -60,18 +60,7 @@
      })
    )
  
-   // Setup and use session middleware (https://github.com/expressjs/session)
-   const sessionOptions = {
-     name: process.env.SESSION_NAME, // Don't use default session cookie name.
-     secret: process.env.SESSION_SECRET, // Change it!!! The secret is used to hash the session with HMAC.
-     resave: false, // Resave even if a request is not changing the session.
-     saveUninitialized: false, // Don't save a created but not modified session.
-     cookie: {
-       httpOnly: true, // förebygga cross-site-scripting, inte skjuta in kod, vilka knappar trycker användaren, stjäla cookiesessions.
-       maxAge: 1000 * 60 * 60 * 24, // 1 day
-       sameSite: 'lax' // protection from CSURF attacks, cookien inte skicka till annan sida, så att den andra sidan kan skicka anrop till vår sida
-     }
-   }
+
  
    app.use(session(sessionOptions))
  
@@ -79,11 +68,7 @@
    app.use((req, res, next) => {
      req.user = req.session.user
      // Flash messages - survives only a round trip.
-     if (req.session.flash) {
-       res.locals.flash = req.session.flash
-       delete req.session.flash
-     }
- 
+   
      // Pass the base URL to the views.
      res.locals.baseURL = baseURL
      res.locals.session = req.session
