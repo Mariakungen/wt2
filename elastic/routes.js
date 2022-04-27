@@ -1,5 +1,6 @@
 import express from 'express'
-
-import 
+import { query } from './elastic.js'
 
 export const router = express.Router()
+
+router.use('/', query)

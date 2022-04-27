@@ -2,15 +2,19 @@
   "dependencies": {
     "@elastic/elasticsearch": "^8.1.0",
     "express": "^4.18.0",
-    "lint": "^0.7.0",
+    "helmet": "^5.0.2",
+    "lint": "^1.1.2",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.15"
   },
   "name": "assignment-wt2-big-data",
   "description": "As developers, we often face challenges handling large amounts of data where runtime execution or ordinary databases do not meet the requirements.\r We might also have APIs with basic CRUD operations where we might want to query, aggregate, and visualize the data in other ways than the API intended. This is where the query engine Elasticsearch comes into play. Elasticsearch should not be seen as a database, but as a query engine. The data in Elasticsearch should always be replaceable and be able to be recreated.\r Elasticsearch and similar query engines allow developers to create indexes from data and use the data in new ways that usually would have taken significant rewriting of applications.",
   "version": "1.0.0",
-  "main": "src/server.js",
+  "main": "server.js",
+  "type": "module",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node server.js",
+    "start:dev": "nodemon --inspect -r dotenv/config server.js"
   },
   "repository": {
     "type": "git",
