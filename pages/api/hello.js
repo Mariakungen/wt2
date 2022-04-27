@@ -1,10 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { Client } from '@elastic/elasticsearch'
 
-export function handler(req, res) {
+export default function handler(req, res) {
   console.log('hello')
-  elasticClient()
-  res.status(200).json({ name: 'John Doe' })
+  const client = elasticClient()
+  const cocoaData = query()
+  console.log(cocoaData)
+  res.status(200).json({ cocoaData })
 
 }
 async function elasticClient() {
@@ -21,8 +23,6 @@ async function elasticClient() {
 
   return client
 }
-
-
 
 
 export async function query(req, res) {
