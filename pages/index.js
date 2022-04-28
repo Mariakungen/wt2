@@ -1,22 +1,29 @@
-
 import dynamic from 'next/dynamic';
 
 const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 
-export default function Home() {
+export default function Home({data}) {
+
+const percentArr= []
+const ratingArr=[]
+ data.cocoaData.forEach(element => percentArr.push(element.key))
+ console.log(percentArr)
+ data.cocoaData.forEach(element => ratingArr.push(element.aafd.value.toFixed(2)))
+
+
  var options ={
    chart: {
      type:'bar'
    },
    series: [
      {
-       name:'sales',
-       data: [30, 40, 35]
+       name:'Percent cocoa',
+       data: ratingArr
      }
    ],
-   xaxis: {
-     categories:[1991, 1992, 1993]
+   xaxis: { // rating
+     categories: percentArr
    }
  }
  
@@ -27,16 +34,15 @@ export default function Home() {
       options={options}
       series={options.series}
       type="bar"
-      width={800}
+      width={1200}
       height={620} />
     </div>
   )
 }
 
-// export async function getServerSideProps() {
-//   const res = await fetch(`${process.env.BASE_URL}/api/hello`)
-//   const data = await res.json()
+export async function getServerSideProps() {
+  const res = await fetch(`${process.env.BASE_URL}/api/hello`)
+  const data = await res.json()
+  return { props: { data } }
 
-//   return { props: { data } }
-
-// }
+}

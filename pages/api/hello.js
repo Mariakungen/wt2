@@ -1,11 +1,11 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { Client } from '@elastic/elasticsearch'
 
 export default async function handler(req, res) {
   const client = elasticClient()
-  const cocoaData = query()
+  const cocoaData = await query()
+  
   res.status(200).json({ cocoaData })
-
+ 
 }
 async function elasticClient() {
   const client = new Client({
@@ -32,7 +32,11 @@ export async function query(req, res) {
         "aggs": {
           "Terms": {
             "terms": {
-              "field": "Cocoa\nPercent"
+              "field": "Cocoa\nPercent",
+              "order": {
+                "_key":"desc"
+              },
+              "size": 50
             },
             "aggs": {
               "aafd": {
@@ -45,8 +49,10 @@ export async function query(req, res) {
         }
       }
       })
-      console.log(searchResult)
-      console.log(searchResult.aggregations.Terms.buckets)
+      var cocoaElasticData = searchResult.aggregations.Terms.buckets
+     return cocoaElasticData
+     // 
+    // console.log(cocoaElasticData, 'testing')
     } catch (error) {
       console.log(error.message)
     }
