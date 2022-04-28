@@ -2,15 +2,12 @@
 import { Client } from '@elastic/elasticsearch'
 
 export default async function handler(req, res) {
-  console.log('hello')
   const client = elasticClient()
   const cocoaData = query()
-  console.log(cocoaData)
   res.status(200).json({ cocoaData })
 
 }
 async function elasticClient() {
-  console.log('auth')
   const client = new Client({
     cloud: {
       id: process.env.ID
@@ -27,9 +24,7 @@ async function elasticClient() {
 
 export async function query(req, res) {
   try {
-    console.log('före')
     const client = await elasticClient()
-    console.log('efter')
     let data = []
     const searchResult = await client.search({
       index: 'choclate',
