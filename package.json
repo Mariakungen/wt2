@@ -6,11 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "npx eslint ./src --fix || exit 0"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^8.1.0",
+    "@lnu/eslint-config": "^1.1.5",
     "apexcharts": "^3.35.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsdoc": "^39.2.9",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-standard": "^5.0.0",
     "next": "^12.1.5",
     "react": "^18.1.0",
     "react-apexcharts": "^1.4.0",
@@ -19,5 +26,8 @@
   "devDependencies": {
     "eslint": "8.14.0",
     "eslint-config-next": "12.1.5"
+  },
+  "eslintConfig": {
+    "extends": "@lnu"
   }
 }
