@@ -41,18 +41,37 @@ export async function query(req, res) {
             "aggs": {
               "aafd": {
                 "avg": {
-                  "field": "Rating"
+                  "range": {
+                  "field": "Rating",
+                  "ranges": [
+                    {"key": "1 to 2",
+                      "from": 1.00,
+                     "to": 2.00
+                    },
+                    {"key": "2 to 3",
+                      "from": 2.00, 
+                    "to": 3.00
+                  },
+                    {"key": "3 to 4",
+                      "from": 3.00, 
+                    "to": 4.00
+                  },  
+                  ]
                 }
+              }
               }
             }
           }
         }
       }
       })
+
+      // https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-range-aggregation.html
+      // Histogram fields för strängar också??
       var cocoaElasticData = searchResult.aggregations.Terms.buckets
+      console.log(cocoaElasticData, 'testing')
      return cocoaElasticData
-     // 
-    // console.log(cocoaElasticData, 'testing')
+   
     } catch (error) {
       console.log(error.message)
     }

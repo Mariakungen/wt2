@@ -4,11 +4,12 @@ const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 
 export default function Home({data}) {
+  // console.log(data.cocoaData)
 
 const percentArr= []
 const ratingArr=[]
  data.cocoaData.forEach(element => percentArr.push(element.key))
- console.log(percentArr)
+ // console.log(percentArr)
  data.cocoaData.forEach(element => ratingArr.push(element.aafd.value.toFixed(2)))
 
 
